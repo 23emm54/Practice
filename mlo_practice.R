@@ -31,7 +31,20 @@ yr_av%>%
            fct_recode("Jan" = "1", "Feb" = "2", "Mar" = "3", "Apr" = "4", "May" = "5", "Jun" = "6", 
                       "Jul" = "7", "Aug" = "8", "Sep" = "9", "Oct" = "10", "Nov" = "11", "Dec" = "12"))
 
+clean_yr_av <- subset(yr_av, co2 > 0)
 
+co2_year <- clean_yr_av %>%
+  group_by(year) %>%
+  summarise(avg_co2 = mean(co2))
+
+View(co2_year)
+
+ggplot(co2_year, aes(x = year, y = avg_co2)) +
+  geom_line() +
+  labs(title = "Average CO2 Levels per Year",
+       x = "Year",
+       y = "Average CO2 concentration") +
+  theme_minimal()
 
 
 
